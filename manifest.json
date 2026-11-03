@@ -1,0 +1,19 @@
+{
+  "name": "Super Dexter Analyser",
+  "short_name": "Dexter Analyser",
+  "description": "XAUUSD news analysis, risk planning and trading education.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b1220",
+  "theme_color": "#101827",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
