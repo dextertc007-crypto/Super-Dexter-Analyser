@@ -1,6 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-<rect width="512" height="512" rx="112" fill="#0b1220"/>
-<path d="M90 370V142h52l114 143 114-143h52v228h-62V238L256 365 152 238v132z" fill="#54d6a1"/>
-<path d="M92 408h328" stroke="#83b8ff" stroke-width="18" stroke-linecap="round"/>
-<circle cx="385" cy="112" r="28" fill="#83b8ff"/>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#071329"/><stop offset="1" stop-color="#020611"/>
+  </linearGradient>
+  <linearGradient id="silver" x1="0" y1="0" x2="0.9" y2="1">
+    <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#aebbd0"/>
+  </linearGradient>
+  <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9aff20"/><stop offset="1" stop-color="#00bd62"/>
+  </linearGradient>
+  <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#38ef7d"/><stop offset="1" stop-color="#168bff"/>
+  </linearGradient>
+</defs>
+<rect width="512" height="512" rx="92" fill="url(#bg)"/>
+<rect x="8" y="8" width="496" height="496" rx="84" fill="none" stroke="url(#edge)" stroke-width="5"/>
+<g opacity=".95">
+  <path d="M265 115v68" stroke="#22e66c" stroke-width="5"/><rect x="252" y="137" width="26" height="32" rx="2" fill="#22e66c"/>
+  <path d="M310 83v93" stroke="#ff3434" stroke-width="5"/><rect x="297" y="112" width="26" height="47" rx="2" fill="#ff3434"/>
+  <path d="M355 66v112" stroke="#22e66c" stroke-width="5"/><rect x="342" y="92" width="26" height="55" rx="2" fill="#22e66c"/>
+  <path d="M400 48v118" stroke="#22e66c" stroke-width="5"/><rect x="387" y="75" width="26" height="61" rx="2" fill="#22e66c"/>
+</g>
+<text x="45" y="335" font-family="Arial,sans-serif" font-size="258" font-weight="900" fill="url(#silver)">D</text>
+<text x="220" y="335" font-family="Arial,sans-serif" font-size="258" font-weight="900" fill="url(#green)">X</text>
+<path d="M45 365 Q225 350 457 185" fill="none" stroke="#00e86b" stroke-width="8" stroke-linecap="round"/>
+<text x="256" y="414" text-anchor="middle" font-family="Arial,sans-serif" font-size="39" font-weight="900" letter-spacing="1.5" fill="#f4f7ff">SUPER DEXTER</text>
+<path d="M80 439h78 M354 439h78" stroke="#72f52d" stroke-width="4" stroke-linecap="round"/>
+<text x="256" y="451" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" font-weight="800" letter-spacing="5" fill="#72f52d">ANALYSER</text>
 </svg>
