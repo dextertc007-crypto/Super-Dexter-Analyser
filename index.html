@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#101827">
+<meta name="description" content="XAUUSD news analysis, risk planning and trading education.">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icons/icon.svg">
 <title>Super Dexter Analyser</title>
 <style>
 :root{color-scheme:dark;--bg:#0b1220;--panel:#151f30;--line:#2b3a50;--text:#eef4ff;--muted:#aab8cc;--accent:#54d6a1;--blue:#83b8ff}
@@ -70,5 +74,13 @@ nav a{color:var(--muted);font-size:.78rem;text-decoration:none}
 </section>
 <footer>Super Dexter Analyser · Educational use · Always verify prices and contract specifications with your broker.</footer>
 <nav><a href="#top">Home</a><a href="#news">News</a><a href="#calendar">Calendar</a><a href="#learn">Learn</a></nav>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js")
+      .catch(error => console.warn("Offline support could not be enabled:", error));
+  });
+}
+</script>
 </body>
 </html>
