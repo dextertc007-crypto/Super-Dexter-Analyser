@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>Super Dexter Analyser — Risk Calculator</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1220;--panel:#151f30;--line:#2b3a50;--text:#eef4ff;--muted:#aab8cc;--accent:#54d6a1;--warn:#ffd166;--bad:#ff8585}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,-apple-system,Segoe UI,sans-serif;padding:18px;max-width:680px;margin:auto}
+h1{font-size:1.45rem;margin:8px 0 4px}.sub{color:var(--muted);font-size:.92rem;margin-bottom:18px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0}
+h2{font-size:1.05rem;margin:0 0 12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;color:var(--muted);font-size:.82rem;margin-bottom:5px}
+input,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#0d1727;color:var(--text);font:inherit}
+.field{min-width:0}.full{grid-column:1/-1}
+button{width:100%;padding:14px;border:0;border-radius:11px;background:var(--accent);color:#062017;font-weight:800;font-size:1rem;margin-top:14px}
+.results{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#0d1727;border:1px solid var(--line);border-radius:12px;padding:12px}.metric small{display:block;color:var(--muted);font-size:.78rem}.metric strong{display:block;font-size:1.15rem;margin-top:4px;overflow-wrap:anywhere}
+.note{color:var(--muted);font-size:.82rem;line-height:1.5}.status{margin-top:12px;padding:12px;border-radius:10px;background:#263044;color:var(--warn);font-size:.9rem}
+@media(max-width:420px){body{padding:12px}.grid{gap:9px}.panel{padding:13px}}
+</style>
+</head>
+<body>
+<h1>Super Dexter Analyser</h1>
+<div class="sub">Deriv MT5 · XAUUSD risk & position-size calculator</div>
+<section class="panel">
+<h2>Trade details</h2>
+<div class="grid">
+<div class="field"><label for="balance">Account balance (USD)</label><input id="balance" type="number" min="0" step="any" value="1000"></div>
+<div class="field"><label for="risk">Risk per trade (%)</label><input id="risk" type="number" min="0" max="100" step="any" value="1"></div>
+<div class="field"><label for="direction">Direction</label><select id="direction"><option value="buy">Buy / Long</option><option value="sell">Sell / Short</option></select></div>
+<div class="field"><label for="entry">Entry price</label><input id="entry" type="number" min="0" step="any" placeholder="e.g. 2350.00"></div>
+<div class="field"><label for="stop">Stop-loss price</label><input id="stop" type="number" min="0" step="any" placeholder="e.g. 2345.00"></div>
+<div class="field"><label for="target">Take-profit price</label><input id="target" type="number" min="0" step="any" placeholder="e.g. 2360.00"></div>
+</div>
+</section>
+<section class="panel">
+<h2>Broker contract specifications</h2>
+<p class="note">Enter these from MT5 → Quotes → XAUUSD → Specification. The example tick size is not a confirmed Deriv setting. Do not guess the tick value.</p>
+<div class="grid">
+<div class="field"><label for="tickSize">Tick size</label><input id="tickSize" type="number" min="0" step="any" value="0.01"></div>
+<div class="field"><label for="tickValue">Tick value per 1.00 lot (USD)</label><input id="tickValue" type="number" min="0" step="any" placeholder="Enter from MT5"></div>
+<div class="field"><label for="step">Volume step (lots)</label><input id="step" type="number" min="0" step="any" value="0.01"></div>
+<div class="field"><label for="minLot">Minimum volume (lots)</label><input id="minLot" type="number" min="0" step="any" value="0.01"></div>
+</div>
+<button id="calculate">Calculate position size</button>
+<div id="status" class="status" role="status">Enter your trade levels and the exact broker tick value to calculate.</div>
+</section>
+<section class="panel">
+<h2>Calculation results</h2>
+<div class="results">
+<div class="metric"><small>Cash risk budget</small><strong id="cashRisk">—</strong></div>
+<div class="metric"><small>Stop distance</small><strong id="distance">—</strong></div>
+<div class="metric"><small>Suggested volume</small><strong id="lots">—</strong></div>
+<div class="metric"><small>Estimated stop loss</small><strong id="loss">—</strong></div>
+<div class="metric"><small>Estimated take profit</small><strong id="profit">—</strong></div>
+<div class="metric"><small>Risk : reward</small><strong id="rr">—</strong></div>
+</div>
+<p class="note">The volume is rounded DOWN to the broker's volume step, never up. Estimates exclude spread, commission, swaps, slippage and gaps. Actual execution can differ.</p>
+</section>
+<script>
+const $=id=>document.getElementById(id);
+const money=n=>Number.isFinite(n)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n):'—';
+function calculate(){
+ const balance=+$('balance').value,risk=+$('risk').value,entry=+$('entry').value,stop=+$('stop').value,target=+$('target').value;
+ const tickSize=+$('tickSize').value,tickValue=+$('tickValue').value,step=+$('step').value,minLot=+$('minLot').value,dir=$('direction').value;
+ const status=$('status');
+ const vals=[balance,risk,entry,stop,target,tickSize,tickValue,step,minLot];
+ if(vals.some(v=>!Number.isFinite(v))||balance<=0||risk<=0||risk>100||entry<=0||stop<=0||target<=0||tickSize<=0||tickValue<=0||step<=0||minLot<=0){status.textContent='Please enter valid positive values in every field, including the broker tick value.';return;}
+ const valid=dir==='buy'?(stop<entry&&target>entry):(stop>entry&&target<entry);
+ if(!valid){status.textContent=dir==='buy'?'For a Buy, stop-loss must be below entry and take-profit above entry.':'For a Sell, stop-loss must be above entry and take-profit below entry.';return;}
+ const stopDist=Math.abs(entry-stop),targetDist=Math.abs(target-entry),riskCash=balance*risk/100;
+ const lossPerLot=(stopDist/tickSize)*tickValue,rawLots=riskCash/lossPerLot;
+ const lots=Math.floor((rawLots+1e-10)/step)*step;
+ const rounded=Number(lots.toFixed(8));
+ $('cashRisk').textContent=money(riskCash);$('distance').textContent=stopDist.toFixed(2);
+ $('lots').textContent=rounded.toFixed(8).replace(/0+$/,'').replace(/\.$/,'')+' lots';
+ if(rounded<minLot){$('loss').textContent='—';$('profit').textContent='—';$('rr').textContent=(targetDist/stopDist).toFixed(2)+' : 1';status.textContent='No trade: calculated volume is below the broker minimum. Do not round up if that would exceed your risk budget.';return;}
+ const actualLoss=rounded*lossPerLot,profit=rounded*(targetDist/tickSize)*tickValue;
+ $('loss').textContent=money(actualLoss);$('profit').textContent=money(profit);$('rr').textContent=(targetDist/stopDist).toFixed(2)+' : 1';
+ status.textContent='Calculation complete. Estimated loss is '+money(actualLoss)+'. Check the contract specifications and costs in MT5 before placing any order.';
+}
+$('calculate').addEventListener('click',calculate);
+</script>
+</body>
+</html>
