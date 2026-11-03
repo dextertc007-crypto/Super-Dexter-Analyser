@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>Super Dexter Analyser</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1220;--panel:#151f30;--line:#2b3a50;--text:#eef4ff;--muted:#aab8cc;--accent:#54d6a1;--blue:#83b8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,-apple-system,Segoe UI,sans-serif;max-width:760px;margin:auto;padding:18px 16px 90px}
+header{padding:14px 2px 18px} .eyebrow{color:var(--accent);font-weight:800;letter-spacing:.12em;font-size:.72rem}h1{font-size:1.7rem;line-height:1.15;margin:7px 0}.muted{color:var(--muted);line-height:1.5;font-size:.92rem}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:16px;margin:13px 0}
+h2{font-size:1.08rem;margin:0 0 8px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.tile{display:block;text-decoration:none;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px;min-height:120px}
+.tile .symbol{font-size:1.35rem}.tile strong{display:block;margin:8px 0 4px}.tile small{color:var(--muted);line-height:1.4;display:block}
+.primary{display:block;background:var(--accent);color:#062017;text-decoration:none;text-align:center;padding:14px;border-radius:12px;font-weight:850;margin-top:12px}
+.pill{display:inline-block;font-size:.68rem;padding:4px 8px;border-radius:99px;background:#263b50;color:var(--blue);font-weight:700}
+.notice{border-left:3px solid var(--accent);padding:9px 12px;background:#101c2b;border-radius:7px;color:var(--muted);font-size:.85rem;line-height:1.5}
+footer{color:var(--muted);font-size:.75rem;text-align:center;padding:20px 0}
+nav{position:fixed;bottom:0;left:0;right:0;background:#0d1727;border-top:1px solid var(--line);display:flex;justify-content:center;gap:22px;padding:12px;z-index:2}
+nav a{color:var(--muted);font-size:.78rem;text-decoration:none}
+@media(max-width:390px){body{padding:12px 12px 85px}.grid{gap:8px}.tile{padding:12px;min-height:126px}}
+</style>
+</head>
+<body>
+<header id="top">
+<div class="eyebrow">YOUR XAUUSD TRADING COMPANION</div>
+<h1>Super Dexter Analyser</h1>
+<div class="muted">Learn the news. Read the price. Manage your risk. Trade with a plan.</div>
+</header>
+<section class="panel">
+<span class="pill">WELCOME BACK</span>
+<h2 style="margin-top:10px">Build your trading decision, step by step.</h2>
+<p class="muted">Use the tools below to prepare a trade. This app is an educational assistant, not a signal service or a guarantee of profit.</p>
+<a class="primary" href="risk-calculator.html">Open Risk & Position Size Calculator →</a>
+</section>
+<h2 style="margin:20px 2px 10px">Your trading toolkit</h2>
+<div class="grid">
+<a class="tile" href="risk-calculator.html"><span class="symbol">🧮</span><strong>Risk Calculator</strong><small>Estimate lot size, stop-loss risk and reward using your broker specifications.</small></a>
+<a class="tile" href="#news"><span class="symbol">📰</span><strong>News Analyser</strong><small>Understand USD news and its possible effect on Gold.</small></a>
+<a class="tile" href="#calendar"><span class="symbol">🗓️</span><strong>Economic Calendar</strong><small>Plan around important USD releases in CAT.</small></a>
+<a class="tile" href="#checklist"><span class="symbol">🎯</span><strong>Price Confirmation</strong><small>Check trend, levels, candle close and retest before entry.</small></a>
+<a class="tile" href="#journal"><span class="symbol">📓</span><strong>Trading Journal</strong><small>Record your setup, risk, result and lessons.</small></a>
+<a class="tile" href="#learn"><span class="symbol">🎓</span><strong>Learning Centre</strong><small>Continue your news-reading and risk-management lessons.</small></a>
+</div>
+<section class="panel" id="news">
+<h2>📰 News Analyser</h2>
+<p class="muted">Core learning framework: economic data can change expectations for the US dollar, Treasury yields and Federal Reserve policy. Gold often reacts to those changes, but the response is not automatic.</p>
+<div class="notice">Next build: enter forecast and actual figures, compare the full release, and generate a cautious USD / Gold bias with exceptions.</div>
+</section>
+<section class="panel" id="calendar">
+<h2>🗓️ Economic Calendar</h2>
+<p class="muted">Calendar times will be shown in CAT (Zimbabwe time). High-impact USD events will be prioritised.</p>
+<div class="notice">Next build: verified event feed and source links. No live calendar data is being claimed in this version.</div>
+</section>
+<section class="panel" id="checklist">
+<h2>🎯 Price Confirmation Checklist</h2>
+<ul class="muted"><li>Identify the market trend.</li><li>Mark support and resistance.</li><li>Wait for a candle close and confirmation.</li><li>Check for a retest or false breakout.</li><li>Set stop-loss and calculate risk before entry.</li></ul>
+<div class="notice">Next build: interactive checklist with a saved pre-trade decision.</div>
+</section>
+<section class="panel" id="journal">
+<h2>📓 Trading Journal</h2>
+<p class="muted">Record the reason for entry, planned risk, result and what you learned. Reviewing decisions matters more than judging one trade.</p>
+<div class="notice">Next build: journal entries saved on your device.</div>
+</section>
+<section class="panel" id="learn">
+<h2>🎓 Learning Centre</h2>
+<p class="muted">Your next lesson after the current news-reading exercises: XAUUSD contract specifications, position sizing, percentage risk and risk-to-reward.</p>
+<div class="notice">Lessons will include short explanations, worked examples and quizzes. We'll keep your Deriv risk-management lesson in this section.</div>
+</section>
+<footer>Super Dexter Analyser · Educational use · Always verify prices and contract specifications with your broker.</footer>
+<nav><a href="#top">Home</a><a href="#news">News</a><a href="#calendar">Calendar</a><a href="#learn">Learn</a></nav>
+</body>
+</html>
